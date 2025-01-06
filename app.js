@@ -12,15 +12,15 @@ document.getElementById("downloadBtn").addEventListener("click", function() {
 
     errorElement.textContent = ""; // Clear previous error message
 
-    // Mock API call - In reality, this would be a call to a backend API or a third-party service
-    fetch(`https://api.tiktokdownloader.com/?url=${encodeURIComponent(videoLink)}`)
+    // Make the API call to the TokDownload API
+    fetch(`https://www.tokdownload.com/api?url=${encodeURIComponent(videoLink)}`)
         .then(response => response.json())
         .then(data => {
-            if (data.success) {
-                // Assuming the API returns the download URL for the video
+            if (data.status === "success" && data.video_url) {
+                // If successful, get the video URL from the response
                 const videoUrl = data.video_url;
                 videoPlayer.src = videoUrl;
-                videoContainer.style.display = "block";
+                videoContainer.style.display = "block"; // Show the video player
             } else {
                 errorElement.textContent = "Failed to download the video. Try again later.";
             }
